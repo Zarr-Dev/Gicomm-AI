@@ -53,18 +53,32 @@
     },
 
     async signInWithGoogle() {
+      const redirectTo =
+        window.location.hostname === "localhost"
+          ? window.location.origin
+          : "https://gicomm-ai.vercel.app";
+
       if (!this.supabase) {
-        throw new Error("Supabase belum dikonfigurasi. Isi js/config.js terlebih dahulu.");
+        console.warn("[Gicomm] Supabase is not initialized.");
+        return;
       }
 
-      const redirectTo = window.location.origin + window.location.pathname;
-
-      const { error } = await this.supabase.auth.signInWithOAuth({
+      const { data, error } = await this.supabase.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo }
+        options: {
+          redirectTo
+        }
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Google Login Error:", error);
+        if (typeof showToast === "function") {
+          showToast("Google Login gagal: " + error.message);
+        }
+        return;
+      }
+
+      console.log("Google OAuth started:", data);
     },
 
     async signOut() {
