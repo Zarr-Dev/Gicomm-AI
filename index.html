@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Gicomm AI - Think. Create. Build.">
+  <title>Gicomm AI</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+
+  <!-- Guest / Hero -->
+  <main id="landingView" class="landing-view">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Gicomm AI home">
+        <span class="brand-mark">G</span>
+        <span>Gicomm</span>
+      </a>
+      <div class="top-actions">
+        <button class="text-btn" id="aboutBtn">About</button>
+        <button class="ghost-btn" id="heroLoginBtn">Continue with Google</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Gicomm AI</div>
+        <h1>Think.<br><span>Create.</span> Build.</h1>
+        <p>Your intelligent workspace for ideas, code, knowledge and creation.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" id="startBtn">Start chatting</button>
+          <button class="secondary-btn" id="heroGoogleBtn">
+            <span class="google-g">G</span>
+            Continue with Google
+          </button>
+        </div>
+        <p class="hero-note">Google sign-in creates or opens your Gicomm account securely through Supabase.</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="art-card art-card-main">
+          <div class="art-card-top">
+            <span class="status-dot"></span>
+            Gicomm AI
+            <span class="mini-label">READY</span>
+          </div>
+          <div class="art-line large"></div>
+          <div class="art-line"></div>
+          <div class="art-line short"></div>
+          <div class="art-response">
+            <span class="spark">✦</span>
+            Ideas become useful when you can build on them.
+          </div>
+        </div>
+        <div class="floating-card card-a">⌘ K <span>Search</span></div>
+        <div class="floating-card card-b">AI <span>Workspace</span></div>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <span>© 2026 Gicomm AI</span>
+      <span>Built for thinking, creating and building.</span>
+    </footer>
+  </main>
+
+  <!-- App -->
+  <div id="appView" class="app-view hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="#" id="appBrand">
+          <span class="brand-mark">G</span>
+          <span>Gicomm</span>
+        </a>
+        <button class="icon-btn mobile-only" id="closeSidebarBtn" aria-label="Close sidebar">×</button>
+      </div>
+
+      <button class="new-chat-btn" id="newChatBtn">
+        <span>＋</span> New chat
+      </button>
+
+      <div class="sidebar-section">
+        <div class="section-label">Workspace</div>
+        <button class="nav-btn active" id="chatNavBtn"><span>⌁</span> Chat</button>
+        <button class="nav-btn" id="searchNavBtn"><span>⌕</span> Search chats <kbd>Ctrl K</kbd></button>
+      </div>
+
+      <div class="sidebar-section history-section">
+        <div class="section-label">Recent</div>
+        <div id="historyList" class="history-list">
+          <div class="empty-history">Your conversations will appear here.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="account-card" id="accountBtn">
+          <div class="avatar-wrap">
+            <img id="accountAvatar" class="avatar" alt="" hidden>
+            <span id="accountAvatarFallback" class="avatar-fallback">G</span>
+          </div>
+          <div class="account-info">
+            <strong id="accountName">Guest</strong>
+            <span id="accountEmail">Not signed in</span>
+          </div>
+          <span class="account-more">•••</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="mobile-overlay hidden" id="mobileOverlay"></div>
+
+    <section class="chat-shell">
+      <header class="chat-header">
+        <button class="icon-btn mobile-only" id="openSidebarBtn" aria-label="Open sidebar">☰</button>
+        <div>
+          <div class="chat-title">Gicomm AI</div>
+          <div class="chat-subtitle"><span class="status-dot"></span> Online workspace</div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="clearChatBtn" title="Clear current chat">⌫</button>
+        </div>
+      </header>
+
+      <main class="chat-content" id="chatContent">
+        <div id="welcomeState" class="welcome-state">
+          <div class="welcome-badge">✦</div>
+          <h2 id="welcomeTitle">Good to see you.</h2>
+          <p>Ask a question, write code, explore an idea, or start building.</p>
+          <div class="suggestion-grid">
+            <button class="suggestion-card" data-prompt="Explain a difficult concept step by step.">
+              <strong>Learn</strong><span>Explain a difficult concept step by step.</span>
+            </button>
+            <button class="suggestion-card" data-prompt="Help me plan a software project from zero.">
+              <strong>Build</strong><span>Help me plan a software project from zero.</span>
+            </button>
+            <button class="suggestion-card" data-prompt="Review this idea and point out weaknesses.">
+              <strong>Think</strong><span>Review an idea and point out weaknesses.</span>
+            </button>
+            <button class="suggestion-card" data-prompt="Write a clean example of HTML, CSS and JavaScript.">
+              <strong>Create</strong><span>Write a clean example of HTML, CSS and JavaScript.</span>
+            </button>
+          </div>
+        </div>
+        <div id="messages" class="messages"></div>
+      </main>
+
+      <div class="composer-area">
+        <div id="imagePreview" class="image-preview hidden"></div>
+        <div class="composer">
+          <button class="composer-icon" id="attachBtn" title="Add image" aria-label="Add image">＋</button>
+          <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+          <textarea id="messageInput" rows="1" maxlength="4000" placeholder="Ask Gicomm AI..." aria-label="Message"></textarea>
+          <div class="composer-right">
+            <button class="composer-icon" id="micBtn" title="Speech to text" aria-label="Speech to text">⌕</button>
+            <span id="tokenCounter" class="token-counter">0/4000</span>
+            <button class="send-btn" id="sendBtn" aria-label="Send message">↑</button>
+          </div>
+        </div>
+        <div class="composer-note">Gicomm AI can make mistakes. Check important information.</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Account menu -->
+  <div id="accountMenu" class="popover account-menu hidden">
+    <div class="popover-profile">
+      <div class="avatar-wrap large">
+        <img id="menuAvatar" class="avatar" alt="" hidden>
+        <span id="menuAvatarFallback" class="avatar-fallback">G</span>
+      </div>
+      <div>
+        <strong id="menuName">Guest</strong>
+        <span id="menuEmail">Not signed in</span>
+      </div>
+    </div>
+    <div class="menu-divider"></div>
+    <button class="menu-item" data-settings="general"><span>⚙</span> Settings</button>
+    <button class="menu-item" data-settings="profile"><span>◉</span> Profile</button>
+    <button class="menu-item" data-settings="appearance"><span>◐</span> Appearance</button>
+    <button class="menu-item" data-settings="speech"><span>◖</span> Voice & Speech</button>
+    <button class="menu-item" data-settings="ai"><span>✦</span> AI preferences</button>
+    <button class="menu-item" data-settings="privacy"><span>◇</span> Privacy & Security</button>
+    <button class="menu-item" data-settings="shortcuts"><span>⌘</span> Keyboard shortcuts</button>
+    <button class="menu-item" data-settings="about"><span>ⓘ</span> About Gicomm</button>
+    <div class="menu-divider"></div>
+    <button class="menu-item danger" id="signOutBtn"><span>↪</span> Sign out</button>
+  </div>
+
+  <!-- Settings -->
+  <div id="settingsModal" class="modal-backdrop hidden">
+    <section class="settings-window" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <header class="settings-header">
+        <div>
+          <div class="eyebrow">Gicomm</div>
+          <h2 id="settingsTitle">Settings</h2>
+        </div>
+        <button class="icon-btn" id="closeSettingsBtn" aria-label="Close settings">×</button>
+      </header>
+      <div class="settings-body">
+        <nav class="settings-nav" id="settingsNav">
+          <button class="settings-tab active" data-panel="general">General</button>
+          <button class="settings-tab" data-panel="profile">Profile</button>
+          <button class="settings-tab" data-panel="appearance">Appearance</button>
+          <button class="settings-tab" data-panel="speech">Voice & Speech</button>
+          <button class="settings-tab" data-panel="ai">AI preferences</button>
+          <button class="settings-tab" data-panel="privacy">Privacy & Security</button>
+          <button class="settings-tab" data-panel="shortcuts">Keyboard shortcuts</button>
+          <button class="settings-tab" data-panel="about">About</button>
+        </nav>
+        <div class="settings-panels">
+          <section class="settings-panel active" data-panel-content="general">
+            <h3>General</h3>
+            <p class="muted">Basic Gicomm workspace preferences.</p>
+            <label class="setting-row">
+              <span><strong>Enter to send</strong><small>Press Enter to send a message. Shift + Enter creates a new line.</small></span>
+              <input type="checkbox" id="enterToSend" checked>
+            </label>
+            <label class="setting-row">
+              <span><strong>Show token counter</strong><small>Display the 4000-character composer limit.</small></span>
+              <input type="checkbox" id="showCounter" checked>
+            </label>
+          </section>
+
+          <section class="settings-panel" data-panel-content="profile">
+            <h3>Profile</h3>
+            <div class="profile-large">
+              <div class="avatar-wrap xlarge">
+                <img id="settingsAvatar" class="avatar" alt="" hidden>
+                <span id="settingsAvatarFallback" class="avatar-fallback">G</span>
+              </div>
+              <div>
+                <strong id="settingsName">Guest</strong>
+                <p id="settingsEmail" class="muted">Not signed in</p>
+              </div>
+            </div>
+            <div class="info-box">Profile data comes from your authenticated Google account. Editing profile fields will be added after the first database migration.</div>
+          </section>
+
+          <section class="settings-panel" data-panel-content="appearance">
+            <h3>Appearance</h3>
+            <p class="muted">Choose how Gicomm should look. The setting is stored locally and survives refreshes.</p>
+            <div class="theme-grid">
+              <button class="theme-option" data-theme-choice="system"><span class="theme-preview system-preview"></span><strong>System</strong><small>Follow your device</small></button>
+              <button class="theme-option" data-theme-choice="light"><span class="theme-preview light-preview"></span><strong>White</strong><small>Light interface</small></button>
+              <button class="theme-option" data-theme-choice="dark"><span class="theme-preview dark-preview"></span><strong>Black</strong><small>Dark interface</small></button>
+            </div>
+            <div id="themeStatus" class="setting-status">Current: System</div>
+          </section>
+
+          <section class="settings-panel" data-panel-content="speech">
+            <h3>Voice & Speech</h3>
+            <p class="muted">Speech controls stay manual. Gicomm will never read AI replies automatically.</p>
+            <label class="setting-row">
+              <span><strong>Speech recognition language</strong><small>Used by the microphone button.</small></span>
+              <select id="speechLanguage">
+                <option value="id-ID">Bahasa Indonesia</option>
+                <option value="en-US">English (US)</option>
+                <option value="zh-CN">中文</option>
+              </select>
+            </label>
+            <label class="setting-row">
+              <span><strong>Speech rate</strong><small>Text-to-speech playback speed.</small></span>
+              <input id="speechRate" type="range" min="0.6" max="1.4" step="0.1" value="1">
+            </label>
+          </section>
+
+          <section class="settings-panel" data-panel-content="ai">
+            <h3>AI preferences</h3>
+            <p class="muted">These are UI preferences for now. Real model settings will connect to the AI backend later.</p>
+            <label class="setting-row">
+              <span><strong>Show AI thinking indicator</strong><small>Display a small loading state while a response is simulated.</small></span>
+              <input type="checkbox" id="showThinking" checked>
+            </label>
+            <label class="setting-row">
+              <span><strong>Maximum message length</strong><small>Current composer limit.</small></span>
+              <strong>4000</strong>
+            </label>
+          </section>
+
+          <section class="settings-panel" data-panel-content="privacy">
+            <h3>Privacy & Security</h3>
+            <p class="muted">Authentication is handled by Supabase Auth. Never put a Supabase service-role key in this frontend.</p>
+            <div class="info-box">The browser only uses the Supabase publishable key. Database access should later be protected with Row Level Security policies.</div>
+          </section>
+
+          <section class="settings-panel" data-panel-content="shortcuts">
+            <h3>Keyboard shortcuts</h3>
+            <div class="shortcut-row"><span>New chat</span><kbd>Ctrl</kbd><kbd>N</kbd></div>
+            <div class="shortcut-row"><span>Search chats</span><kbd>Ctrl</kbd><kbd>K</kbd></div>
+            <div class="shortcut-row"><span>Send</span><kbd>Enter</kbd></div>
+            <div class="shortcut-row"><span>New line</span><kbd>Shift</kbd><kbd>Enter</kbd></div>
+          </section>
+
+          <section class="settings-panel" data-panel-content="about">
+            <h3>About Gicomm</h3>
+            <p class="muted">Gicomm AI is a personal AI workspace prototype.</p>
+            <div class="about-card">
+              <div class="brand"><span class="brand-mark">G</span><span>Gicomm AI</span></div>
+              <p>Frontend foundation v2. Google authentication, settings, themes, image selection, speech recognition and manual text-to-speech controls are included.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- About -->
+  <div id="aboutModal" class="modal-backdrop hidden">
+    <section class="small-modal" role="dialog" aria-modal="true">
+      <button class="icon-btn modal-close" id="closeAboutBtn">×</button>
+      <div class="welcome-badge">G</div>
+      <h2>Gicomm AI</h2>
+      <p>Your intelligent workspace for thinking, creating and building.</p>
+      <button class="primary-btn full" id="aboutLoginBtn">Continue with Google</button>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
